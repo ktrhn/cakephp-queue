@@ -273,16 +273,16 @@ class BeanstalkdSource extends DataSource
         }
     }
 
-/**
- * All calls to methods on the model are routed through this method
- *
- * @param mixed $method
- * @param mixed $params
- * @param mixed $Model
- * @access public
- * @return void
- */
-    function query($method, $params, &$Model) {
+    /**
+     * All calls to methods on the model are routed through this method
+     *
+     */
+    function query($method, $params, &$Model)
+    {
+        if ('remove' == $method) {
+            $method = 'delete';
+        }
+
         array_unshift($params, $Model);
 
         $startQuery = microtime(true);
